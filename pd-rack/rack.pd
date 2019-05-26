@@ -1,0 +1,10 @@
+#N canvas 329 95 951 615 10;
+#X obj 247 89 modules/plts~-module;
+#X obj 264 379 modules/audio~-module;
+#X obj 258 13 modules/midi-io-module;
+#X obj 649 305 modules/scope~-module;
+#X obj 647 97 modules/lfo~-module;
+#X connect 0 0 1 0;
+#X connect 0 1 1 1;
+#X connect 2 1 0 8;
+#X connect 2 2 0 6;

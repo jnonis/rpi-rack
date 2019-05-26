@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_p5-gui" default="compile.module.p5-gui">
+  <dirname property="module.p5-gui.basedir" file="${ant.file.module_p5-gui}"/>
+  
+  <property name="module.jdk.home.p5-gui" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.p5-gui" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.p5-gui" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.p5-gui" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="p5-gui.output.dir" value="${module.p5-gui.basedir}/out/production/p5-gui"/>
+  <property name="p5-gui.testoutput.dir" value="${module.p5-gui.basedir}/out/test/p5-gui"/>
+  
+  <path id="p5-gui.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="p5-gui.module.production.classpath">
+    <path refid="${module.jdk.classpath.p5-gui}"/>
+    <path refid="library.core.classpath"/>
+  </path>
+  
+  <path id="p5-gui.runtime.production.module.classpath">
+    <pathelement location="${p5-gui.output.dir}"/>
+    <path refid="library.core.classpath"/>
+  </path>
+  
+  <path id="p5-gui.module.classpath">
+    <path refid="${module.jdk.classpath.p5-gui}"/>
+    <pathelement location="${p5-gui.output.dir}"/>
+    <path refid="library.core.classpath"/>
+  </path>
+  
+  <path id="p5-gui.runtime.module.classpath">
+    <pathelement location="${p5-gui.testoutput.dir}"/>
+    <pathelement location="${p5-gui.output.dir}"/>
+    <path refid="library.core.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.p5-gui">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.p5-gui">
+    <patternset refid="excluded.from.module.p5-gui"/>
+  </patternset>
+  
+  <path id="p5-gui.module.sourcepath">
+    <dirset dir="${module.p5-gui.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.p5-gui" depends="compile.module.p5-gui.production,compile.module.p5-gui.tests" description="Compile module p5-gui"/>
+  
+  <target name="compile.module.p5-gui.production" depends="register.custom.compilers" description="Compile module p5-gui; production classes">
+    <mkdir dir="${p5-gui.output.dir}"/>
+    <javac2 destdir="${p5-gui.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.p5-gui}/javac">
+      <compilerarg line="${compiler.args.p5-gui}"/>
+      <bootclasspath refid="p5-gui.module.bootclasspath"/>
+      <classpath refid="p5-gui.module.production.classpath"/>
+      <src refid="p5-gui.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.p5-gui"/>
+    </javac2>
+    
+    <copy todir="${p5-gui.output.dir}">
+      <fileset dir="${module.p5-gui.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.p5-gui.tests" depends="register.custom.compilers,compile.module.p5-gui.production" description="compile module p5-gui; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.p5-gui" description="cleanup module">
+    <delete dir="${p5-gui.output.dir}"/>
+    <delete dir="${p5-gui.testoutput.dir}"/>
+  </target>
+</project>

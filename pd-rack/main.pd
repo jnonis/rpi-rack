@@ -1,0 +1,30 @@
+#N canvas 521 29 613 446 10;
+#X text 11 19 rack main patch handle OSC and presets;
+#X obj 13 72 rack;
+#X obj 392 51 ggee/getdir;
+#X msg 392 72 savetofile rack.pd \$1;
+#X obj 392 93 s pd-rack.pd;
+#X text 329 32 save rack;
+#X obj 397 145 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 286 145 list rack content;
+#X obj 397 186 print;
+#X obj 12 43 message-io;
+#X obj 12 98 loadbang;
+#X msg 12 119 \; pd dsp 1 \;;
+#X obj 392 31 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 392 10 r save;
+#X obj 397 165 list-objects;
+#X obj 397 122 r list-rack;
+#X obj 60 232 r oscOut;
+#X obj 60 253 print;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 6 0 14 0;
+#X connect 10 0 11 0;
+#X connect 12 0 2 0;
+#X connect 13 0 12 0;
+#X connect 14 0 8 0;
+#X connect 15 0 6 0;
+#X connect 16 0 17 0;
