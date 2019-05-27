@@ -51,7 +51,7 @@ public class Rack extends PagerView {
           msg.get(3).intValue());
       Connection connection = new Connection(out, in);
       connections.add(connection);
-      Module module = getModuleById(out.module);
+      Module module = getModuleById(out.module); //<>//
       if (module == null) {
         println("Module out null: " + out.module);
       } else {
@@ -162,6 +162,9 @@ public class Rack extends PagerView {
       case Scope.NAME:
         module = new Scope(this, id);
         break;
+      case MidiIO.NAME:
+        module = new MidiIO(this, id);
+        break;
     }
     if (module != null) {
       module.setup(parent);
@@ -169,6 +172,14 @@ public class Rack extends PagerView {
       // FIXME
       addView(module);
     }
+  }
+  
+  public void onButton(int index, int value) {
+    modules.get(current).onButton(index, value);
+  }
+
+  public void onEncoder(int index, int value) {
+    modules.get(current).onEncoder(index, value);
   }
 }
 
@@ -215,6 +226,12 @@ public abstract class Module extends ViewGroup {
     if (outlet < outJacks.size()) {
       outJacks.get(outlet).setConnected(true);
     }
+  }
+  
+  public void onButton(int index, int value) {
+  }
+
+  public void onEncoder(int index, int value) {
   }
 }
 

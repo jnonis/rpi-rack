@@ -26,12 +26,14 @@ public class JackInputView extends ButtonView {
         parent.ellipseMode(PApplet.CORNER);
         parent.ellipse(0, 0, size, size);
         parent.fill(0);
-        parent.ellipse(0, 0, size / 2, size / 2);
+        float size2 = size / 2;
+        float offset = size2 / 2;
+        parent.ellipse(offset, offset, size2, size2);
 
         parent.fill(0);
         parent.textSize(12);
         parent.textAlign(PApplet.CENTER, PApplet.TOP);
-        parent.text(title, 0, (size / 2) + 8);
+        parent.text(title, size / 2, size + 8);
 
         if (label != null) {
             parent.fill(labelColor);

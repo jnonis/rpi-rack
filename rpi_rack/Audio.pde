@@ -5,15 +5,23 @@ public class Audio extends Module {
   
   public Audio(Rack rack, int id) {
     super(rack, id);
-    addView(new KnobView(80, 20, 40, "In Left", this, "onInLeft"));
-    addView(new KnobView(80, 100, 40, "In Right", this, "onInRight"));
-    addView(new KnobView(200, 20, 40, "Out Left", this, "onOutLeft"));
-    addView(new KnobView(200, 100, 40, "Out Right", this, "onOutRight"));
+    addView(new KnobView(100, 40, 40, "In Left", this, "onInLeft"));
+    addView(new KnobView(100, 120, 40, "In Right", this, "onInRight"));
+    addView(new KnobView(190, 40, 40, "Out Left", this, "onOutLeft"));
+    addView(new KnobView(190, 120, 40, "Out Right", this, "onOutRight"));
     
-    addView(new JackInputView(40, 380, 30, "In L", this, "onInLeftClick"));
-    addView(new JackInputView(100, 380, 30, "In R", this, "onInRightClick"));
-    addView(new JackInputView(180, 380, 30, "Out L", this, "onOutLeftClick"));
-    addView(new JackInputView(240, 380, 30, "Out R", this, "onOutRightClick"));
+    JackInputView jack = new JackInputView(80, 340, 30, "In L", this, "onInLeftClick");
+    addView(jack);
+    outJacks.add(jack);
+    jack = new JackInputView(130, 340, 30, "In R", this, "onInRightClick");
+    addView(jack);
+    outJacks.add(jack);
+    jack = new JackInputView(180, 340, 30, "Out L", this, "onOutLeftClick");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(230, 340, 30, "Out R", this, "onOutRightClick");
+    addView(jack);
+    inJacks.add(jack);
   }
   
   public String getName() {

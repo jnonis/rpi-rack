@@ -3,6 +3,7 @@ import com.rack.p5gui.*;
 OSCManager oscManager;
 P5GUI gui;
 Rack rack;
+GPIOControl control;
 
 void setup() {
   size(320,480);
@@ -19,6 +20,9 @@ void setup() {
   gui.addView(new ButtonView(0, 440, 40, "Prev", this, "onPreviousPage"));
   gui.addView(new ButtonView(280, 440, 40, "Next", this, "onNextPage"));
   gui.setup();
+  
+  control.attachButtonListener(this, "onButton");
+  control.attachEncoderListener(this, "onEncoder");
 }
 
 void draw() {
@@ -34,4 +38,12 @@ void onPreviousPage(boolean isLongClick) {
 
 void onNextPage(boolean isLongClick) {
   rack.next();
+}
+
+void onButton(int index, int value) {
+  rack.onButton(index, value);
+}
+
+void onEncoder(int index, int value) {
+  rack.onEncoder(index, value);
 }

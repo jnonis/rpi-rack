@@ -17,8 +17,6 @@
 #X obj 392 10 r save;
 #X obj 397 165 list-objects;
 #X obj 397 122 r list-rack;
-#X obj 60 232 r oscOut;
-#X obj 60 253 print;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 6 0 14 0;
@@ -27,4 +25,3 @@
 #X connect 13 0 12 0;
 #X connect 14 0 8 0;
 #X connect 15 0 6 0;
-#X connect 16 0 17 0;

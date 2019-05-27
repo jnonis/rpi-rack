@@ -10,7 +10,9 @@ public class Scope extends Module {
     scopeView = new ScopeView(30, 30);
     
     addView(scopeView);
-    addView(new JackInputView(40, 380, 30, "In", this, "onInClick"));
+    JackInputView jack = new JackInputView(40, 380, 30, "In", this, "onInClick");
+    addView(jack);
+    inJacks.add(jack);
   }
     
   public String getName() {
@@ -19,6 +21,7 @@ public class Scope extends Module {
   
   public void onInClick(boolean isLong) {
     if (isLong) {
+      rack.disconnectIn(NAME, 0);
     } else {
       rack.setConnectionIn(NAME, 0);
     }

@@ -45,8 +45,8 @@ public class Plaits extends Module implements Pageable {
     modFMView = new TrimpotView(148, 290, this, "onFMMod");
     modMorphView = new TrimpotView(220, 290, this, "onMorphMod");
     
-    outView = new JackInputView(202, 416, 30, "", this, "onOutClick");
-    auxView = new JackInputView(244, 416, 30, "", this, "onAuxClick");
+    outView = new JackInputView(187, 401, 30, "", this, "onOutClick");
+    auxView = new JackInputView(229, 401, 30, "", this, "onAuxClick");
     
     addView(model1View);
     addView(model2View);
@@ -59,14 +59,32 @@ public class Plaits extends Module implements Pageable {
     addView(modTimbreView);
     addView(modFMView);
     addView(modMorphView);
-    addView(new JackInputView(76, 362, 30, "", this, null));
-    addView(new JackInputView(118, 362, 30, "", this, null));
-    addView(new JackInputView(160, 362, 30, "", this, null));
-    addView(new JackInputView(202, 362, 30, "", this, null));
-    addView(new JackInputView(244, 362, 30, "", this, null));
-    addView(new JackInputView(76, 416, 30, "", this, null));
-    addView(new JackInputView(118, 416, 30, "", this, null));
-    addView(new JackInputView(160, 416, 30, "", this, null));
+    // FIXME
+    inJacks.add(new JackInputView(61, 347, 30, "", this, null));
+    JackInputView jack = new JackInputView(61, 347, 30, "", this, "onModelIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(103, 347, 30, "", this, "onTimbreIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(145, 347, 30, "", this, "onFMIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(187, 347, 30, "", this, "onMorphIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(229, 347, 30, "", this, "onHarmonicsIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(61, 401, 30, "", this, "onTriggerIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(103, 401, 30, "", this, "onLevelIn");
+    addView(jack);
+    inJacks.add(jack);
+    jack = new JackInputView(145, 401, 30, "", this, "onVOctIn");
+    addView(jack);
+    inJacks.add(jack);
     addView(outView);
     addView(auxView);
     
@@ -211,6 +229,70 @@ public class Plaits extends Module implements Pageable {
     oscManager.sendFloat("/plts~/mod/morph", (value - (ImageKnobView.MAX_VALUE / 2)) / (ImageKnobView.MAX_VALUE / 2));
   }
   
+  public void onModelIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 1);
+    } else {
+      rack.setConnectionIn(NAME, 1);
+    }
+  }
+  
+  public void onTimbreIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 2);
+    } else {
+      rack.setConnectionIn(NAME, 2);
+    }
+  }
+  
+  public void onFMIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 3);
+    } else {
+      rack.setConnectionIn(NAME, 3);
+    }
+  }
+  
+  public void onMorphIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 4);
+    } else {
+      rack.setConnectionIn(NAME, 4);
+    }
+  }
+  
+  public void onHarmonicsIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 5);
+    } else {
+      rack.setConnectionIn(NAME, 5);
+    }
+  }
+  
+  public void onTriggerIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 6);
+    } else {
+      rack.setConnectionIn(NAME, 6);
+    }
+  }
+  
+  public void onLevelIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 7);
+    } else {
+      rack.setConnectionIn(NAME, 7);
+    }
+  }
+  
+  public void onVOctIn(boolean isLong) {
+    if (isLong) {
+      rack.disconnectIn(NAME, 8);
+    } else {
+      rack.setConnectionIn(NAME, 8);
+    }
+  }
+  
   public void onOutClick(boolean isLong) {
     if (isLong) {
       rack.disconnectOut(NAME, 0);
@@ -274,6 +356,41 @@ public class Plaits extends Module implements Pageable {
         modMorphView.setLabel("3");
         break;
     } 
+  }
+  
+  public void onButton(int index, int value) {
+    switch (currentControls) {
+      case 0:
+        if (value == 1) {
+          switch (index) {
+            case 3:
+              onModel1(false);
+              break;
+            case 2:
+              onModel2(false);
+          }
+        }
+        break;
+      case 1:
+        break;
+    }
+  }
+  
+  public void onEncoder(int index, int value) {
+    switch (currentControls) {
+      case 0:
+        switch (index) {
+          case 3:
+            //onFrequency(value / 1024, false);
+            break;
+          case 2:
+            //onModel2(false);
+            break;
+        }
+        break;
+      case 1:
+        break;
+    }
   }
 }
 

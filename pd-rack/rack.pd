@@ -5,6 +5,7 @@
 #X obj 649 305 modules/scope~-module;
 #X obj 647 97 modules/lfo~-module;
 #X connect 0 0 1 0;
+#X connect 0 0 3 0;
 #X connect 0 1 1 1;
 #X connect 2 1 0 8;
 #X connect 2 2 0 6;

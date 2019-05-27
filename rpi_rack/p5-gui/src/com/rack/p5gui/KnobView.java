@@ -37,8 +37,9 @@ public class KnobView extends View {
         parent.pushMatrix();
         parent.translate(x, y);
 
+        parent.ellipseMode(PApplet.CORNER);
         parent.fill(255);
-        parent.ellipse(size / 2, size / 2, size, size);
+        parent.ellipse(0, 0, size, size);
 
         parent.fill(0);
         parent.textSize(12);
