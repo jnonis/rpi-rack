@@ -92,7 +92,7 @@ public class Plaits extends Module implements Pageable {
     outJacks.add(auxView);
     
     for (int i = 0; i < 8; i++) {
-      LedView led = new LedView(158, (int) (92 + (20.4 * i)), 10);
+      LedView led = new LedView(153, (int) (87 + (20.4 * i)), 10);
       leds.add(led);
       addView(led);
     }
@@ -240,24 +240,30 @@ public class Plaits extends Module implements Pageable {
   public void onTimbreIn(boolean isLong) {
     if (isLong) {
       rack.disconnectIn(NAME, 2);
+      oscManager.sendFloat("/plts~/timbre/active", 0);
     } else {
       rack.setConnectionIn(NAME, 2);
+      oscManager.sendFloat("/plts~/timbre/active", 1);
     }
   }
   
   public void onFMIn(boolean isLong) {
     if (isLong) {
       rack.disconnectIn(NAME, 3);
+      oscManager.sendFloat("/plts~/fm/active", 0);
     } else {
       rack.setConnectionIn(NAME, 3);
+      oscManager.sendFloat("/plts~/fm/active", 1);
     }
   }
   
   public void onMorphIn(boolean isLong) {
     if (isLong) {
       rack.disconnectIn(NAME, 4);
+      oscManager.sendFloat("/plts~/morph/active", 0);
     } else {
       rack.setConnectionIn(NAME, 4);
+      oscManager.sendFloat("/plts~/morph/active", 1);
     }
   }
   
@@ -272,16 +278,20 @@ public class Plaits extends Module implements Pageable {
   public void onTriggerIn(boolean isLong) {
     if (isLong) {
       rack.disconnectIn(NAME, 6);
+      oscManager.sendFloat("/plts~/trigger/active", 0);
     } else {
       rack.setConnectionIn(NAME, 6);
+      oscManager.sendFloat("/plts~/trigger/active", 1);
     }
   }
   
   public void onLevelIn(boolean isLong) {
     if (isLong) {
       rack.disconnectIn(NAME, 7);
+      oscManager.sendFloat("/plts~/level/active", 0);
     } else {
       rack.setConnectionIn(NAME, 7);
+      oscManager.sendFloat("/plts~/level/active", 1);
     }
   }
   

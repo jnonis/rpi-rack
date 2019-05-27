@@ -21,6 +21,7 @@ void setup() {
   gui.addView(new ButtonView(280, 440, 40, "Next", this, "onNextPage"));
   gui.setup();
   
+  control = new GPIOControl();
   control.attachButtonListener(this, "onButton");
   control.attachEncoderListener(this, "onEncoder");
 }

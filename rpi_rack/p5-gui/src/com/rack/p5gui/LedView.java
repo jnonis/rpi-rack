@@ -22,6 +22,7 @@ public class LedView extends View {
         parent.pushMatrix();
         parent.translate(x, y);
 
+        parent.ellipseMode(PApplet.CORNER);
         parent.fill(127);
         parent.ellipse(0, 0, size, size);
         parent.fill(color);
