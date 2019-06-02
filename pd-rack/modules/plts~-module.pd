@@ -11,7 +11,7 @@ har 0 -9 0 10 -262144 -1 -1 0 1;
 -9 0 10 -262144 -1 -1 0 1;
 #X msg 11 526 timbre \$1;
 #X obj 345 160 vsl 15 128 0 1 0 1 /plts~/morph /plts~/morph mor 0 -9
-0 10 -262144 -1 -1 6300 1;
+0 10 -262144 -1 -1 6100 1;
 #X msg 11 572 morph \$1;
 #X obj 227 160 vsl 15 128 0 15 0 1 /plts~/model /plts~/model model
 0 -9 0 10 -262144 -1 -1 0 1;
@@ -31,11 +31,11 @@ mti 0 -9 0 10 -262144 -1 -1 6700 1;
 #X obj 463 160 vsl 15 128 -1 1 0 1 /plts~/mod/fm /plts~/mod/fm fm 0
 -9 0 10 -262144 -1 -1 6600 1;
 #X obj 486 160 vsl 15 128 -1 1 0 1 /plts~/mod/morph /plts~/mod/morph
-mmo 0 -9 0 10 -262144 -1 -1 12700 1;
+mmo 0 -9 0 10 -262144 -1 -1 6700 1;
 #X msg 291 629 mod_fm \$1;
 #X msg 414 629 mod_morph \$1;
 #X obj 439 69 tgl 15 1 /plts~/trigger/active /plts~/trigger/active
-empty 0 -8 0 10 -262144 -1 -1 0 1;
+empty 0 -8 0 10 -262144 -1 -1 1 1;
 #X msg 346 378 trigger_active \$1;
 #X msg 291 582 mod_timbre \$1;
 #X text 201 296 out;

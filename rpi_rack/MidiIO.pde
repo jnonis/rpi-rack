@@ -5,19 +5,19 @@ public class MidiIO extends Module {
   
   public MidiIO(Rack rack, int id) {
     super(rack, id);
-    JackInputView jack = new JackInputView(40, 380, 30, "Note", this, "onNote");
+    JackInputView jack = new JackInputView(40, 340, 30, "Note", this, "onNote");
     addView(jack);
     outJacks.add(jack);
-    jack = new JackInputView(80, 380, 30, "CV", this, "onCV");
+    jack = new JackInputView(90, 340, 30, "CV", this, "onCV");
     addView(jack);
     outJacks.add(jack);
-    jack = new JackInputView(120, 380, 30, "Gate", this, "onGate");
+    jack = new JackInputView(140, 340, 30, "Gate", this, "onGate");
     addView(jack);
     outJacks.add(jack);
-    jack = new JackInputView(160, 380, 30, "Trig", this, "onTrigger");
+    jack = new JackInputView(190, 340, 30, "Trig", this, "onTrigger");
     addView(jack);
     outJacks.add(jack);
-    jack = new JackInputView(200, 380, 30, "Vel", this, "onVelocity");
+    jack = new JackInputView(240, 340, 30, "Vel", this, "onVelocity");
     addView(jack);
     outJacks.add(jack);
   }

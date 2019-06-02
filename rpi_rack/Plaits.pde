@@ -382,6 +382,9 @@ public class Plaits extends Module implements Pageable {
         }
         break;
       case 1:
+        if (value == 1 && index == 0) {
+          oscManager.sendFloat("/plts~/trigger", value);
+        }
         break;
     }
   }
@@ -391,14 +394,48 @@ public class Plaits extends Module implements Pageable {
       case 0:
         switch (index) {
           case 3:
-            //onFrequency(value / 1024, false);
+            freqView.setValue(freqView.getValue() + value);
+            onFrequency(freqView.getValue(), false);
             break;
           case 2:
-            //onModel2(false);
+            harmonicsView.setValue(harmonicsView.getValue() + value);
+            onHarmonics(harmonicsView.getValue(), false);
+            break;
+          case 1:
+            if (timbreView.isVisible()) {
+              timbreView.setValue(timbreView.getValue() + value);
+              onTimbre(timbreView.getValue(), false);
+            } else {
+              lpgView.setValue(lpgView.getValue() + value);
+              onLPG(lpgView.getValue(), false);
+            }
+            break;
+          case 0:
+            if (morphView.isVisible()) {
+              morphView.setValue(morphView.getValue() + value);
+              onMorph(morphView.getValue(), false);
+            } else {
+              decayView.setValue(decayView.getValue() + value);
+              onDecay(decayView.getValue(), false);
+            }
             break;
         }
         break;
       case 1:
+        switch (index) {
+          case 3:
+            modTimbreView.setValue(modTimbreView.getValue() + value);
+            onTimbreMod(modTimbreView.getValue(), false);
+            break;
+          case 2:
+            modFMView.setValue(modFMView.getValue() + value);
+            onFMMod(modFMView.getValue(), false);
+            break;
+          case 1:
+            modMorphView.setValue(modMorphView.getValue() + value);
+            onMorphMod(modMorphView.getValue(), false);
+            break;
+        }
         break;
     }
   }

@@ -69,7 +69,7 @@ public class ScopeView extends View {
       if (ci >= array.length) {
         ci = ci - array.length + 1;
       }
-      graphic.line((ci - 1), (array[ci - 1] * 128f) + 64f, ci, (array[ci] * 128f) + 64f);
+      graphic.line((ci - 1), (array[ci - 1] * -128f) + 64f, ci, (array[ci] * -128f) + 64f);
     }
     graphic.endDraw();
     parent.scale(0.5, 1);
@@ -81,7 +81,7 @@ public class ScopeView extends View {
     parent.rect(0, 0, 256, 128);
     parent.fill(0);
     
-    parent.popMatrix(); //<>//
+    parent.popMatrix(); //<>// //<>//
   }
   
   public void addValue(float value) {

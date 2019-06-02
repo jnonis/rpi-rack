@@ -21,8 +21,16 @@ public abstract class View {
         this.visible = visible;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public boolean isEnable() {
+        return enable;
     }
 
     public boolean mousePressed(int mouseX, int mouseY) {

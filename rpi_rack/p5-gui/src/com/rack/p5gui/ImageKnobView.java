@@ -126,6 +126,11 @@ public abstract class ImageKnobView extends View {
     }
 
     public void setValue(float value) {
+        if (value > MAX_VALUE) {
+            value = MAX_VALUE;
+        } else if (value < 0) {
+            value = 0;
+        }
         this.value = value;
     }
 

@@ -51,7 +51,7 @@ public class Rack extends PagerView {
           msg.get(3).intValue());
       Connection connection = new Connection(out, in);
       connections.add(connection);
-      Module module = getModuleById(out.module); //<>//
+      Module module = getModuleById(out.module); //<>// //<>//
       if (module == null) {
         println("Module out null: " + out.module);
       } else {
@@ -79,7 +79,7 @@ public class Rack extends PagerView {
   }
   
   public void updateRack() {
-    for (Module m : modules) { //<>//
+    for (Module m : modules) { //<>// //<>//
       m.clearConnections();
     }
     connections.clear();
