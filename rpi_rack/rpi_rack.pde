@@ -15,6 +15,7 @@ void setup() {
   
   gui = new P5GUI(this);
   rack = new Rack(this, oscManager);
+  //rack.addModule(Braids.NAME, -1);
   gui.addView(rack);
     
   gui.addView(new ButtonView(0, 440, 40, "Prev", this, "onPreviousPage"));

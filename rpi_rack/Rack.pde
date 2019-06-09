@@ -54,7 +54,7 @@ public class Rack extends PagerView {
           msg.get(3).intValue());
       Connection connection = new Connection(out, in);
       connections.add(connection);
-      Module module = getModuleById(out.module); //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+      Module module = getModuleById(out.module); //<>// //<>//
       if (module == null) {
         println("Module out null: " + out.module);
       } else {
@@ -83,14 +83,14 @@ public class Rack extends PagerView {
   }
   
   public void clearConnections() {
-    for (Module m : modules) { //<>// //<>// //<>// //<>// //<>// //<>//
+    for (Module m : modules) { //<>//
       m.clearConnections();
     }
     connections.clear();
   }
   
   public void updateRack() {
-    //clearConnections(); //<>// //<>// //<>// //<>// //<>// //<>//
+    //clearConnections(); //<>//
     //oscManager.send("/list-rack");
   }
   
@@ -175,6 +175,9 @@ public class Rack extends PagerView {
         break;
       case MidiIO.NAME:
         module = new MidiIO(this, id);
+        break;
+      case Braids.NAME:
+        module = new Braids(this, id);
         break;
     }
     if (module != null) {

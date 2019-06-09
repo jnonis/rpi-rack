@@ -81,7 +81,7 @@ public class ScopeView extends View {
     parent.rect(0, 0, 256, 128);
     parent.fill(0);
     
-    parent.popMatrix(); //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+    parent.popMatrix(); //<>// //<>//
   }
   
   public void addValue(float value) {
