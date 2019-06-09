@@ -4,20 +4,20 @@ public class Plaits extends Module implements Pageable {
   public static final String NAME = "plts~-module";
   private PImage background;
   
-  private ModelButtonView model1View;
-  private ModelButtonView model2View;
+  private TL1105 model1View;
+  private TL1105 model2View;
   
-  private BigKnobView freqView;
-  private BigKnobView harmonicsView;
+  private Rogan3PSWhite freqView;
+  private Rogan3PSWhite harmonicsView;
   
-  private MediumKnobView timbreView;
-  private MediumKnobView morphView;
-  private MediumKnobRedView lpgView;
-  private MediumKnobRedView decayView;
+  private Rogan1PSWhite timbreView;
+  private Rogan1PSWhite morphView;
+  private Rogan1PSRed lpgView;
+  private Rogan1PSRed decayView;
   
-  private TrimpotView modTimbreView;
-  private TrimpotView modFMView;
-  private TrimpotView modMorphView;
+  private Trimpot modTimbreView;
+  private Trimpot modFMView;
+  private Trimpot modMorphView;
   
   private JackInputView outView;
   private JackInputView auxView;
@@ -31,19 +31,19 @@ public class Plaits extends Module implements Pageable {
   
   public Plaits(Rack rack, int id) {
     super(rack, id);
-    model1View = new ModelButtonView(133, 60, this, "onModel1");
-    model2View = new ModelButtonView(166, 60, this, "onModel2");
-    freqView = new BigKnobView(60, 80, this, "onFrequency");
-    harmonicsView = new BigKnobView(194, 80, this, "onHarmonics");
-    timbreView = new MediumKnobView(64, 190, this, "onTimbre");
-    morphView = new MediumKnobView(204, 190, this, "onMorph");
-    lpgView = new MediumKnobRedView(64, 190, this, "onLPG");
+    model1View = new TL1105(133, 60, this, "onModel1");
+    model2View = new TL1105(166, 60, this, "onModel2");
+    freqView = new Rogan3PSWhite(60, 80, this, "onFrequency");
+    harmonicsView = new Rogan3PSWhite(194, 80, this, "onHarmonics");
+    timbreView = new Rogan1PSWhite(64, 190, this, "onTimbre");
+    morphView = new Rogan1PSWhite(204, 190, this, "onMorph");
+    lpgView = new Rogan1PSRed(64, 190, this, "onLPG");
     lpgView.setVisible(false);
-    decayView = new MediumKnobRedView(204, 190, this, "onDecay");
+    decayView = new Rogan1PSRed(204, 190, this, "onDecay");
     decayView.setVisible(false);
-    modTimbreView = new TrimpotView(76, 290, this, "onTimbreMod");
-    modFMView = new TrimpotView(148, 290, this, "onFMMod");
-    modMorphView = new TrimpotView(220, 290, this, "onMorphMod");
+    modTimbreView = new Trimpot(76, 290, this, "onTimbreMod");
+    modFMView = new Trimpot(148, 290, this, "onFMMod");
+    modMorphView = new Trimpot(220, 290, this, "onMorphMod");
     
     outView = new JackInputView(187, 401, 30, "", this, "onOutClick");
     auxView = new JackInputView(229, 401, 30, "", this, "onAuxClick");
@@ -373,16 +373,31 @@ public class Plaits extends Module implements Pageable {
       case 0:
         if (value == 1) {
           switch (index) {
-            case 3:
+            case 0:
               onModel1(false);
               break;
-            case 2:
+            case 1:
               onModel2(false);
+              break;
+            case 2:
+              if (timbreView.isVisible()) {
+                onTimbre(timbreView.getValue(), true);
+              } else {
+                onLPG(lpgView.getValue(), true);
+              }
+              break;
+            case 3:
+              if (morphView.isVisible()) {
+                onMorph(morphView.getValue(), true);
+              } else {
+                onDecay(decayView.getValue(), true);
+              }
+              break;
           }
         }
         break;
       case 1:
-        if (value == 1 && index == 0) {
+        if (value == 1 && index == 3) {
           oscManager.sendFloat("/plts~/trigger", value);
         }
         break;
@@ -393,15 +408,15 @@ public class Plaits extends Module implements Pageable {
     switch (currentControls) {
       case 0:
         switch (index) {
-          case 3:
+          case 0:
             freqView.setValue(freqView.getValue() + value);
             onFrequency(freqView.getValue(), false);
             break;
-          case 2:
+          case 1:
             harmonicsView.setValue(harmonicsView.getValue() + value);
             onHarmonics(harmonicsView.getValue(), false);
             break;
-          case 1:
+          case 2:
             if (timbreView.isVisible()) {
               timbreView.setValue(timbreView.getValue() + value);
               onTimbre(timbreView.getValue(), false);
@@ -410,7 +425,7 @@ public class Plaits extends Module implements Pageable {
               onLPG(lpgView.getValue(), false);
             }
             break;
-          case 0:
+          case 3:
             if (morphView.isVisible()) {
               morphView.setValue(morphView.getValue() + value);
               onMorph(morphView.getValue(), false);
@@ -423,86 +438,20 @@ public class Plaits extends Module implements Pageable {
         break;
       case 1:
         switch (index) {
-          case 3:
+          case 0:
             modTimbreView.setValue(modTimbreView.getValue() + value);
             onTimbreMod(modTimbreView.getValue(), false);
             break;
-          case 2:
+          case 1:
             modFMView.setValue(modFMView.getValue() + value);
             onFMMod(modFMView.getValue(), false);
             break;
-          case 1:
+          case 2:
             modMorphView.setValue(modMorphView.getValue() + value);
             onMorphMod(modMorphView.getValue(), false);
             break;
         }
         break;
     }
-  }
-}
-
-public class BigKnobView extends ImageKnobView {
-  
-  public BigKnobView(int x, int y, Object listener, String callback) {
-    super(x, y, listener, callback);
-    labelSize = 16;
-  }
-  
-  protected PImage loadImage(PApplet parent) {
-    return parent.loadImage("Rogan3PSWhite.png");
-  }
-}
-
-public class MediumKnobView extends ImageKnobView {
-  
-  public MediumKnobView(int x, int y, Object listener, String callback) {
-    super(x, y, listener, callback);
-    labelSize = 14;
-  }
-  
-  protected PImage loadImage(PApplet parent) {
-    return parent.loadImage("Rogan1PSWhite.png");
-  }
-}
-
-public class MediumKnobRedView extends ImageKnobView {
-  
-  public MediumKnobRedView(int x, int y, Object listener, String callback) {
-    super(x, y, listener, callback);
-    labelSize = 14;
-  }
-  
-  protected PImage loadImage(PApplet parent) {
-    return parent.loadImage("Rogan1PSRed.png");
-  }
-}
-
-public class TrimpotView extends ImageKnobView {
-  
-  public TrimpotView(int x, int y, Object listener, String callback) {
-    super(x, y, listener, callback);
-    labelSize = 10;
-    labelColor = 255;
-  }
-  
-  protected PImage loadImage(PApplet parent) {
-    return parent.loadImage("Trimpot.png");
-  }
-}
-
-public class ModelButtonView extends ImageButtonView {
-  
-  public ModelButtonView(int x, int y, Object listener, String callback) {
-    super(x, y, listener, callback);
-    labelSize = 10;
-    labelColor = 255;
-  }
-  
-  protected PImage createImageIdle(PApplet parent) {
-    return parent.loadImage("TL1105_1.png");
-  }
-  
-  protected PImage createImagePressed(PApplet parent) {
-    return parent.loadImage("TL1105_0.png");
   }
 }

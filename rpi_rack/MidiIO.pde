@@ -5,6 +5,7 @@ public class MidiIO extends Module {
   
   public MidiIO(Rack rack, int id) {
     super(rack, id);
+    addView(new LabelView(30, 30, "MIDI IN"));
     JackInputView jack = new JackInputView(40, 340, 30, "Note", this, "onNote");
     addView(jack);
     outJacks.add(jack);

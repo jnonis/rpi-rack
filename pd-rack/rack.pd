@@ -4,6 +4,7 @@
 #X obj 258 13 modules/midi-io-module;
 #X obj 649 305 modules/scope~-module;
 #X obj 647 97 modules/lfo~-module;
+#X obj 69 34 modules/audio-in~-module;
 #X connect 0 0 1 0;
 #X connect 0 0 3 0;
 #X connect 0 1 1 1;

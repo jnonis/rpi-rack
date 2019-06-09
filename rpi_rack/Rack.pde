@@ -1,4 +1,5 @@
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Rack extends PagerView {
   PApplet parent;
@@ -42,6 +43,8 @@ public class Rack extends PagerView {
       int id = msg.get(1).intValue();
       println(name);
       addModule(name, id);
+    } else if(msg.addrPattern().startsWith("/connection/clear")) {
+      clearConnections();
     } else if(msg.addrPattern().startsWith("/connection")) {
       ConnectionPlug out = new ConnectionPlug(
           msg.get(0).intValue(),
@@ -51,7 +54,7 @@ public class Rack extends PagerView {
           msg.get(3).intValue());
       Connection connection = new Connection(out, in);
       connections.add(connection);
-      Module module = getModuleById(out.module); //<>// //<>//
+      Module module = getModuleById(out.module); //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       if (module == null) {
         println("Module out null: " + out.module);
       } else {
@@ -63,6 +66,7 @@ public class Rack extends PagerView {
       } else {
         module.setConnectionIn(in.let);
       }
+      println("Connection size: " + connections.size());
     } else {
       Module module = null;
       for (Module m : modules) {
@@ -78,12 +82,16 @@ public class Rack extends PagerView {
     }
   }
   
-  public void updateRack() {
-    for (Module m : modules) { //<>// //<>//
+  public void clearConnections() {
+    for (Module m : modules) { //<>// //<>// //<>// //<>// //<>// //<>//
       m.clearConnections();
     }
     connections.clear();
-    oscManager.send("/list-rack");
+  }
+  
+  public void updateRack() {
+    //clearConnections(); //<>// //<>// //<>// //<>// //<>// //<>//
+    //oscManager.send("/list-rack");
   }
   
   public void setConnectionIn(String module, int inlet) {
@@ -155,6 +163,9 @@ public class Rack extends PagerView {
     switch (name) {
       case Audio.NAME:
         module = new Audio(this, id);
+        break;
+      case AudioIn.NAME:
+        module = new AudioIn(this, id);
         break;
       case Plaits.NAME:
         module = new Plaits(this, id);

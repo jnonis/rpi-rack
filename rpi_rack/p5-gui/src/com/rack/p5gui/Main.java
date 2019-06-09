@@ -37,6 +37,8 @@ public class Main extends PApplet {
 
         group.addView(new JackInputView(160, 300, 30, "Test", null, null));
 
+        group.addView(new LabelView(20, 20, "Label text"));
+
         ledView = new LedView(100, 100, 10);
         group.addView(ledView);
         pagerView.addView(group);
